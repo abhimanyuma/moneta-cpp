@@ -6,6 +6,20 @@
 
 #include "error_utils.h"
 
+static void read_connection(int conn_fd)
+{
+    char read_buffer[64] = {};
+    ssize_t n = read(conn_fd, read_buffer, sizeof(read_buffer) - 1);
+
+    if (n < 0)
+    {
+        std::cout << "Read Function Error";
+        return;
+    }
+
+    std::cout << "Client Message: " << read_buffer << '\n';
+}
+
 int main()
 {
 
@@ -45,9 +59,10 @@ int main()
             continue;
         }
 
-        std::cout << "Operating on connection fd: " << conn_fd << '\n';
+        read_connection(conn_fd);
         close(conn_fd);
     }
 
     return 0;
 }
+    
