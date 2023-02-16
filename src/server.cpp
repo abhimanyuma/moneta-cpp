@@ -1,4 +1,5 @@
 
+#include <cstring>
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -18,6 +19,8 @@ static void read_connection(int conn_fd)
     }
 
     std::cout << "Client Message: " << read_buffer << '\n';
+    char write_buffer[] = "world";
+    write(conn_fd, write_buffer, strlen(write_buffer));
 }
 
 int main()
@@ -65,4 +68,3 @@ int main()
 
     return 0;
 }
-    
